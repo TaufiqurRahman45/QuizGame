@@ -540,7 +540,6 @@ public class QuizGame {
                             } else {
                                 System.out.printf("\n\nWrong!!! The correct answer is D.Serena Williams");
                                 scanner.next();
-                                //break score;
                                 break;
                             }
 
