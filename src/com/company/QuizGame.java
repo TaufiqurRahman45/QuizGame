@@ -2,6 +2,13 @@ package com.company;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 
 public class QuizGame {
 
@@ -595,17 +602,56 @@ public class QuizGame {
     }
 
 
-    static void show_record() {
+    public static void show_record() throws FileNotFoundException {
         clear();
-        //todo
+        File file=new File("score.txt");
+        float score;
+        float max=0;
+        String s=null;
+        Scanner scanner=new Scanner(file);
+        
+        while(scanner.hasNextLine()){
+        
+            String [] str= scanner.nextLine().split(":");
+            String part1=str[0];
+            String part2=str[1];
+  
+            
+             score=Float.parseFloat(part2);
+            
+                if (score>max) {
+                 max=score;
+                 s=part1;
+              }
+                System.out.println("------------------------------------------------------");
+                
+                System.out.println(part1.toUpperCase()+" has secured the Highest Score with "+part2);
+               
+        }
+             System.out.println("------------------------------------------------------");
+                  
+             System.out.println(" ");
+             System.out.println("*****************************************************");
+             System.out.println("Overall highest score is by "+s.toUpperCase()+" with score "+max);
+             System.out.println("*****************************************************");
+    
     }
 
-    static void reset_score() {
-        clear();
-        //todo
+    public static void reset_score(){
+
+    clear();
+        try {
+            FileWriter fw = new FileWriter("score.txt");
+            PrintWriter pw= new PrintWriter(fw);
+            pw.print("");
+            pw.close();
+            
+        } catch (Exception e) {
+        }
+        
     }
 
-    static void help() {
+    public static void help(){
         clear();
         System.out.printf("\n\n                              HELP");
         System.out.printf("\n -------------------------------------------------------------------------");
@@ -626,9 +672,28 @@ public class QuizGame {
         System.out.printf("\n\n\t*****C PROGRAM QUIZ GAME is developed by CODE WITH C TEAM********");
     }
 
-    static void edit_score(float score, String plnm) {
-        clear();
-        //todo
+
+    public static void edit_score(float score,String playerName) {
+        
+        float sc=0;
+     
+        try {
+            
+             FileReader fr= new FileReader("score.txt");
+             BufferedReader br= new BufferedReader(fr);
+             
+            if(score>=sc){
+                FileWriter fw = new FileWriter("score.txt",true);
+                PrintWriter pw= new PrintWriter(fw);
+                 pw.println(playerName+":"+score);
+                 pw.close();
+                
+            }
+    
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+  
     }
 
 }
